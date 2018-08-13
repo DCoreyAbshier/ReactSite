@@ -2,7 +2,15 @@
   "name": "testsite",
   "version": "0.1.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+		"prestart": "babel-node tools/startMessage.js",
+    "start": "npm-run-all --parallel testwatch opensrc lintwatch",
+    "opensrc": "babel-node tools/srcServer.js",
+    "lint": "node_modules/.bin/esw webpack.config.* src tools",
+    "lintwatch": "npm run lint -- --watch",
+    "test": "mocha --reporter progress tools/testSetup.js \"src/**/*.test.js\"",
+    "testwatch": "npm run test -- --watch"
+	},
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.3",
